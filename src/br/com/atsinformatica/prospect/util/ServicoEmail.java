@@ -7,7 +7,6 @@ import br.com.atsinformatica.prospect.dataaccess.ConfiguracoesDAO;
 import br.com.atsinformatica.prospect.models.Cliente;
 import br.com.atsinformatica.prospect.models.Configuracoes;
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -24,7 +23,6 @@ import android.util.Log;
 public class ServicoEmail extends Service {
 	private Looper mServiceLooper;
 	private ServiceHandler mServiceHandler;
-	private int count,max;
 
 	// Handler that receives messages from the thread
 	private final class ServiceHandler extends Handler {
@@ -87,18 +85,12 @@ public class ServicoEmail extends Service {
 		if ("S".equals(config.getEnviaEmail())){
 			Log.d("Servico", "Enviar emails = S");
 			List<Cliente> lista = ClienteDAO.getClienteDAO(getApplicationContext()).selectNotSendEmail();
-			count = 0;
-			max = lista.size();
 			for(Cliente item : lista){
 				try {
 					if(!item.getEmail_principal().isEmpty()){
 						Log.d("Servico", "Enviando email para "+item.getEmail_principal());
 						Utility.sendEmail(getApplicationContext(), item);
-						Log.d("Servico", "email enviado");
-						item = ClienteDAO.getClienteDAO(getApplicationContext()).select(item.getId());
-						if ("S".equals(item.getEmailEnviado())){
-							count++;
-						}		
+						Log.d("Servico", "email enviado");	
 					}
 				} catch (Exception e) {
 					Log.d("Servico", "Erro ao enviar email");

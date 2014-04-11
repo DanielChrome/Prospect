@@ -2,116 +2,140 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/logo"
-        android:scaleType="fitCenter" />
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
- 		android:gravity="center_horizontal"
- 		android:layout_marginBottom="5dp"
- 		android:layout_marginTop="10dip">
+        android:layout_height="0dip"
+        android:layout_weight="2"
+        android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/addCliente"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@android:color/transparent"
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
-            android:onClick="executaOpcao"
-            android:scaleType="centerInside"
-            android:src="@drawable/client_add" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo" />
 
-        <ImageButton
-            android:id="@+id/listaCliente"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            android:onClick="executaOpcao"
-            android:scaleType="centerInside"
-            android:src="@drawable/client_list" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dip"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/addCliente"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/client_add" />
+
+            <ImageButton
+                android:id="@+id/listaCliente"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/client_list" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/listaEmail"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/email" />
+
+            <ImageButton
+                android:id="@+id/Exportar"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/export" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/Configuracoes"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/settings" />
+            <ImageButton
+                android:id="@+id/Sobre"
+                android:clickable="true"
+                android:layout_width="90dip"
+                android:layout_height="90dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="20dip"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name"
+                android:onClick="executaOpcao"
+                android:scaleType="centerInside"
+                android:src="@drawable/about" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-		android:gravity="center_horizontal"
-		android:layout_marginTop="10dip">
-
-        <ImageButton
-            android:id="@+id/listaEmail"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            android:onClick="executaOpcao"
-            android:scaleType="centerInside"
-            android:src="@drawable/email" />
-
-        <ImageButton
-            android:id="@+id/Exportar"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            android:onClick="executaOpcao"
-            android:scaleType="centerInside"
-            android:src="@drawable/export" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-		android:gravity="center_horizontal"
-		android:layout_marginTop="10dip">
-
-        <ImageButton
-            android:id="@+id/Configuracoes"
-            android:layout_width="90dip"
-            android:layout_height="90dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            android:onClick="executaOpcao"
-            android:scaleType="centerInside"
-            android:src="@drawable/settings" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-		android:gravity="center_horizontal"
-		android:layout_marginTop="10dip">
+        android:layout_marginTop="5dip"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="10dip"
-            android:text="ATS Informática - 2014"/>
+            android:text="@string/rodape" />
     </LinearLayout>
 
 </LinearLayout>

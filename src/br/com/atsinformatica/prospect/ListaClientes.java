@@ -137,15 +137,6 @@ public class ListaClientes
 
 		MenuItem menuNovo = menu.add(0, MENUITEM_NEW, 0, R.string.menuitem_new);
 		menuNovo.setIcon(android.R.drawable.ic_menu_add);
-		
-		MenuItem menuSett = menu.add(0, MENUITEM_SETTINGS, 1, R.string.menuitem_sett);
-		menuSett.setIcon(android.R.drawable.ic_menu_preferences);
-		
-		MenuItem menuExp = menu.add(0, MENUITEM_EXPORT, 2, R.string.menuitem_exp);
-		menuExp.setIcon(android.R.drawable.ic_menu_send);
-		
-		MenuItem menuEmail = menu.add(0, MENUITEM_EMAILS, 3, R.string.menuitem_email);
-		menuEmail.setIcon(android.R.drawable.ic_menu_upload);
 		return true;
 	}
 
@@ -171,31 +162,6 @@ public class ListaClientes
 			
 			// ... inicia-se a nova activity aguardando resposta.
 			startActivityForResult(intent, REQUEST_NEW);
-		}
-		else
-		if (item.getItemId() == MENUITEM_SETTINGS) {
-				
-			// ... cria-se uma Intent para iniciar a activity que
-			// conteém o formulário de configurações e...
-			Intent intent = new Intent(getApplicationContext(),
-					AConfigs.class);
-			
-			startActivity(intent);
-		}else
-		if (item.getItemId() == MENUITEM_EXPORT) {
-			
-			// ... cria-se uma Intent para iniciar a activity que
-			Utility u = new Utility();
-			u.setContext(getApplicationContext());
-			u.executaExportCSV(getApplicationContext());
-		}else
-		if (item.getItemId() == MENUITEM_EMAILS) {
-				
-			// ... cria-se uma Intent para iniciar a activity que
-			Intent intent = new Intent(getApplicationContext(),
-					ListaEmails.class);
-			
-			startActivity(intent);
 		}
 
 		return true;

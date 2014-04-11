@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class AConfigs extends Activity {
 	
 	private Configuracoes config;
-	private EditText edcodresp,edimagem;
+	private EditText edcodresp,edimagem,edlinkimagem,edassunto;
 	private EditText edsmtp,edporta,edemail,edusuario,edsenha;
 	private CheckBox ckenviaemail,ckssl;
 	
@@ -23,6 +23,8 @@ public class AConfigs extends Activity {
 		setContentView(R.layout.configuracoes);
 		edcodresp     = (EditText) findViewById(R.id.edcodresp);
 		edimagem      = (EditText) findViewById(R.id.edCaminhoImg);
+		edlinkimagem  = (EditText) findViewById(R.id.edlinkImg);
+		edassunto     = (EditText) findViewById(R.id.edAssunto);
 		edsmtp        = (EditText) findViewById(R.id.edSMTP);
 		edporta       = (EditText) findViewById(R.id.edPorta);
 		edemail       = (EditText) findViewById(R.id.edEmailFrom);
@@ -37,6 +39,8 @@ public class AConfigs extends Activity {
 		if (config != null){
 			edcodresp.setText(config.getCodResp());
 			edimagem.setText(config.getUrlimagem());
+			edlinkimagem.setText(config.getLinkimagem());
+			edassunto.setText(config.getAssuntoemail());
 			edsmtp.setText(config.getSmtp()); 
 			edporta.setText(Integer.toString(config.getPorta())); 
 			edemail.setText(config.getEmail()); 
@@ -64,6 +68,8 @@ public class AConfigs extends Activity {
 			config.setEnviaEmail("S");
 		}
 		config.setUrlimagem(edimagem.getText().toString());
+		config.setLinkimagem(edlinkimagem.getText().toString());
+		config.setAssuntoemail(edassunto.getText().toString());
 		config.setSmtp(edsmtp.getText().toString());
 		config.setPorta(Integer.parseInt(edporta.getText().toString()));
 		config.setEmail(edemail.getText().toString());

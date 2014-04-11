@@ -19,7 +19,7 @@ public abstract class Dao <T> {
 	private String DB_NAME = "prospec";
 	
 	/** Versão do banco de dados */
-	private int DB_VERSION = 2;
+	private int DB_VERSION = 4;
 	
 	/** Contexto da aplicação*/
 	private Context context;

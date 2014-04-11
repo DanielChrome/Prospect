@@ -19,6 +19,7 @@
         <service android:name="br.com.atsinformatica.prospect.util.ServicoEmail" />
         <activity
             android:name="br.com.atsinformatica.prospect.Principal"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,13 +28,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.com.atsinformatica.prospect.ListaClientes"/>           
+            android:name="br.com.atsinformatica.prospect.ListaClientes"
+            android:screenOrientation="portrait"/>           
         <activity
-            android:name="br.com.atsinformatica.prospect.CadCliente" />
+            android:name="br.com.atsinformatica.prospect.CadCliente"
+			android:screenOrientation="portrait"/>
         <activity
-            android:name="br.com.atsinformatica.prospect.AConfigs" />
+            android:name="br.com.atsinformatica.prospect.AConfigs"
+			android:screenOrientation="portrait"/>
          <activity
-            android:name="br.com.atsinformatica.prospect.ListaEmails" />
+            android:name="br.com.atsinformatica.prospect.ListaEmails"
+			android:screenOrientation="portrait"/>
+         <activity
+            android:name="br.com.atsinformatica.prospect.Sobre"
+			android:screenOrientation="portrait"/>
         <receiver
             android:name="br.com.atsinformatica.prospect.util.InternetChangeReceiver"
             android:label="InternetChangeReceiver" >

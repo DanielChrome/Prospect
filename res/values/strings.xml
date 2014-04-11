@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Prospect 0.3.1 (AUTOCOM)</string>
+    <string name="app_name">Registro de Prospects</string>
+    <string name="version">V: 0.8</string>
     <string name="nome">Nome:</string>
     <string name="hnome">Razão Social</string>
     <string name="fantasia">Fantasia:</string>
@@ -61,7 +62,9 @@
     <string name="hcodresp">Responsável Resulth</string>
     <string name="enviaemail">Enviar Emails</string>
     <string name="emailimagem">URL Imagem</string>
-    <string name="emailconfig">Configurações do Email</string>
+    <string name="linkimagem">Link de Redirec.</string>
+    <string name="assunto">Assunto do Email</string>
+    <string name="emailconfig">Configurações de envio do Email</string>
     <string name="emailsmtp">SMTP</string>
     <string name="emailporta">Porta SMTP</string>
     <string name="emailfrom">Email</string>
@@ -78,7 +81,12 @@
     <string name="menuitem_sett">Configuração</string>
     <string name="menuitem_exp">Exportar para .CSV</string>
     <string name="menuitem_email">Emails pendentes</string>
-    <string name="export">Exportando dados. Aguarde</string>
+    <string name="developed">Desenvolvido por:</string>
+    <string name="gp">Gregory Pacheco</string>
+    <string name="gpemail">gregory@atsinformatica.com.br</string>
+    <string name="chr">Daniel Costa</string>
+    <string name="chremail">daniel.costa@atsinformatica.com.br</string>
+    <string name="atssite">www.atsinformatica.com.br</string>
     <string name="iteminsert_sucess">Novo cliente incluído com sucesso</string>    
     <string name="context_edit">Editar cliente</string>
     <string name="itemedit_sucess">Cliente editado com sucesso</string>    
@@ -91,5 +99,6 @@
     <string name="dialog_negative">Não</string>
     <string name="btsalvar">Salvar</string>
     <string name="ctx_send">Enviar email</string>
+    <string name="rodape">ATS Informática - 2014</string>
 
 </resources>

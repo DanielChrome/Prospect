@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 public class Principal extends Activity {
 	
-	ImageButton[] menu = new ImageButton[5];
+	ImageButton[] menu = new ImageButton[6];
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -20,6 +20,7 @@ public class Principal extends Activity {
         menu[2] = (ImageButton) findViewById(R.id.listaEmail);
         menu[3] = (ImageButton) findViewById(R.id.Exportar);
         menu[4] = (ImageButton) findViewById(R.id.Configuracoes);
+        menu[5] = (ImageButton) findViewById(R.id.Sobre);
         
 	}
 	
@@ -42,6 +43,9 @@ public class Principal extends Activity {
         			break;
         		case R.id.Configuracoes:
         			i = new Intent(this,AConfigs.class);
+        			break;
+        		case R.id.Sobre:
+        			i = new Intent(this,Sobre.class);
         			break;
         		default:
         			i = new Intent(this,Principal.class);

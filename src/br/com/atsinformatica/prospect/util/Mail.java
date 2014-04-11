@@ -26,6 +26,7 @@ import br.com.atsinformatica.prospect.dataaccess.ConfiguracoesDAO;
 import br.com.atsinformatica.prospect.models.Cliente;
 import br.com.atsinformatica.prospect.models.Configuracoes;
 
+import br.com.atsinformatica.prospect.R;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -51,7 +52,8 @@ public class Mail extends javax.mail.Authenticator {
 	private String _host;
 	private boolean _ssl;
 
-	private String _subject; 
+	private String _subject;
+	private String _IMGLINK;
 	private String _body; 
 
 	private boolean _auth; 
@@ -63,16 +65,7 @@ public class Mail extends javax.mail.Authenticator {
 
 	public Mail(Context ctx) { 
 		this.ctx = ctx;
-		String IMGLINK;
-		
-		IMGLINK = 
-		"<a href=\"http://youtu.be/nO50WMyiOgk\" target=\"_blank\"> " +
-		"   <img width=\"539\" height=\"549\" border=\"0\" align=\"center\"  src=\"http://www.atsinformatica.com.br/downloads/vi_1533806046_email_autocom_cadastro.png \"/> " +
-		"</a>";
 
-		System.out.println(IMGLINK);
-				
-		
 		Configuracoes config = new Configuracoes();
 		config = ConfiguracoesDAO.getConfiguracoesDAO(this.ctx).select(1);
 		_host = config.getSmtp(); // default smtp server 
@@ -80,18 +73,21 @@ public class Mail extends javax.mail.Authenticator {
 		_sport = Integer.toString(config.getPorta()); // default socketfactory port 
 		_ssl   = ("S".equals(config.getSSL()));
 		
+		_IMGLINK = 
+				"<a href=\""+config.getLinkimagem()+"\" target=\"_blank\"> " +
+				"   <img width=\"539\" height=\"549\" border=\"0\" align=\"center\"  src=\""+config.getUrlimagem()+" \"/> " +
+				"</a>";
+		
 		_user = config.getUsuario(); // username 
 		_pass = config.getSenha(); // password 
 		_from = config.getEmail(); // email sent from 
-		_subject = "Bem vindo a ATS Informática"; // email subject 
+		_subject = config.getAssuntoemail(); // email subject 
 		_body = "<html>      "
                 +"   <head>   "
                 +"      </head>   "
                 +"      <body>    "
-              //  +"         <a href=\"http://www.atsinformatica.com.br\"><img src=\""+config.getUrlimagem()+"\"></a>"
-                + IMGLINK 
-              //  +"      "+config.getUrlimagem()+""
-                +"  <br />    ATS Mobile APP V.:0.3 (AUTOCOM)  "
+                + _IMGLINK 
+                +"  <br /> "+R.string.app_name + " - "+R.string.version
                 +"      </body>   "
                 +"</html>"; // email body 
 

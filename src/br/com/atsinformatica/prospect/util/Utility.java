@@ -18,6 +18,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -35,9 +37,12 @@ import android.app.NotificationManager;
 public class Utility {
 
 	private Context ct;
-	private static final int MY_NOTIFICATION_ID=1;
+	private static final int MY_NOTIFICATION_ID  =1;
+	private static final int MY_NOTIFICATION_ID2 =2;
 	private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 	private static final int[] pesoCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+	private Builder mBuilder;
+	private NotificationManager mNotifyManager;
 	/**
 	 * Método responsável pela geração e tratamento de diálogos.
 	 * 
@@ -135,6 +140,12 @@ public class Utility {
 	}
 
 	public void executaExportCSV(Context ctx){
+		mNotifyManager =
+		        (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+		mBuilder = new NotificationCompat.Builder(ctx);
+		mBuilder.setContentTitle("Exportando Registros")
+		    .setContentText("Exportação em progresso")
+		    .setSmallIcon(R.drawable.ic_launcher);
 		Log.i("Export.", "Preparando pra executar AssyncTask");
 		Toast.makeText(ctx, 
 				"Exportando...", Toast.LENGTH_SHORT).show();
@@ -142,18 +153,12 @@ public class Utility {
 	}	
 
 	private class ExportTask extends AsyncTask<Void, Integer, Void> {
-
+		
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			if (values[1]>0){
-				Toast.makeText(ct, 
-						"Exportando: "+values[0]+" de "+values[1], Toast.LENGTH_SHORT).show();
-			}else{
-				Toast.makeText(ct, 
-						"Nenhum registro para ser importado", Toast.LENGTH_SHORT).show();
-			}
-
-
+			Log.d("AsyncTasck", "On Progress "+values[0] + "-"+values[1]);
+			mBuilder.setProgress(values[0], values[1], false);
+            mNotifyManager.notify(MY_NOTIFICATION_ID2, mBuilder.build());
 		}
 
 		@Override
@@ -165,7 +170,9 @@ public class Utility {
 		@Override
 		protected void onPostExecute(Void aVoid) {
 			super.onPostExecute(aVoid);
-			Toast.makeText(ct, "Dados exportados com sucesso.", Toast.LENGTH_SHORT).show();
+			mBuilder.setContentText("Exportado com sucesso.")
+            		.setProgress(0,0,false);
+			mNotifyManager.notify(MY_NOTIFICATION_ID2, mBuilder.build());
 			Log.d("AsyncTasck", "Finalizando AsyncTasck");
 		}
 
@@ -182,24 +189,24 @@ public class Utility {
 					return null;
 				}				
 				String codresp = ConfiguracoesDAO.getConfiguracoesDAO(ct).select(1).getCodResp();
-				String columns[] = {"\"Razão Social\"","\"ID\"","\"Website\"","\"Endereço(s) de E-mail\"",						
-						/*1*/	"\"email_addresses_non_primary\"","\"Telefone Comercial\"","\"Telefone Alternativo\"",
-						/*2*/	"\"Fax\"","\"Rua do Endereço não Utilizado\"","\"Cidade do Endereço não Utilizado\"",
-						/*3*/	"\"Estado do Endereço não Utilizado\"","\"CEP do Endereço não Utilizado\"",
-						/*4*/	"\"País do Endereço não Utilizado\"","\"Rua do Endereço não Utilizado\"",
-						/*5*/	"\"Cidade do Endereço não Utilizado (nope)\"","\"Estado do Endereço não Utilizado\"",
-						/*6*/	"\"CEP do Endereço não Utilizado\"","\"Paí­s do Endereço não Utilizado\"",
-						/*7*/	"\"Descrição\"","\"Tipo\"","\"Negócio\"","\"Receita Anual\"","\"Nº de Funcionários\"",
-						/*8*/	"\"Código SIC\"","\"Código Bolsa\"","\"ID Conta Principal\"","\"Propriedade\"",
-						/*9*/	"\"ID Campanha\"","\"Avaliação\"","\"nome de usuário atribuído\"","\"Atribuído a\"",
-						/*10*/	"\"Data da Criação no Resulth CRM\"","\"Data da Modificação\"","\"Modificado Por\"",
-						/*11*/	"\"Criado Por\"","\"Eliminado\"","\"Ativo\"","\"Bairro do Endereço de Fatura\"",
-						/*12*/	"\"Bairro do Endereço Principal\"","\"CNPJ\"","\"Código do Cliente (Resulth)\"",
-						/*13*/	"\"Data de Cadastro\"","\"Estado do Endereço de Fatura\"","\"Estado\"",
-						/*14*/	"\"Motivo do Cancelamento\"","\"Nome Fantasia\"","\"Número do Endereço de Fatura\"",
-						/*15*/	"\"Número do Endereço Principal\"","\"País do Endereço de Fatura\"",
-						/*16*/	"\"País do Endereço Principal\"","\"Rua do Endereço de Fatura\"",
-				/*17*/	"\"Rua do Endereço Principal\""};
+				String columns[] = {"Razão Social","ID","Website","Endereço(s) de E-mail",						
+						/*1*/	"email_addresses_non_primary","Telefone Comercial","Telefone Alternativo",
+						/*2*/	"Fax","Rua do Endereço não Utilizado","Cidade do Endereço não Utilizado",
+						/*3*/	"Estado do Endereço não Utilizado","CEP do Endereço não Utilizado",
+						/*4*/	"País do Endereço não Utilizado","Rua do Endereço não Utilizado",
+						/*5*/	"Cidade do Endereço não Utilizado (nope)","Estado do Endereço não Utilizado",
+						/*6*/	"CEP do Endereço não Utilizado","Paí­s do Endereço não Utilizado",
+						/*7*/	"Descrição","Tipo","Negócio","Receita Anual","Nº de Funcionários",
+						/*8*/	"Código SIC","Código Bolsa","ID Conta Principal","Propriedade",
+						/*9*/	"ID Campanha","Avaliação","nome de usuário atribuído","Atribuído a",
+						/*10*/	"Data da Criação no Resulth CRM","Data da Modificação","Modificado Por",
+						/*11*/	"Criado Por","Eliminado","Ativo","Bairro do Endereço de Fatura",
+						/*12*/	"Bairro do Endereço Principal","CNPJ","Código do Cliente (Resulth)",
+						/*13*/	"Data de Cadastro","Estado do Endereço de Fatura","Estado",
+						/*14*/	"Motivo do Cancelamento","Nome Fantasia","Número do Endereço de Fatura",
+						/*15*/	"Número do Endereço Principal","País do Endereço de Fatura",
+						/*16*/	"País do Endereço Principal","Rua do Endereço de Fatura",
+				/*17*/	"Rua do Endereço Principal"};
 
 				String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 				Log.d("ExportaCSV", "Diretorio: "+csv);
@@ -210,39 +217,41 @@ public class Utility {
 					file   =   new File(dir, "Data.csv");
 					CSVWriter write = new CSVWriter(new FileWriter(file));
 					try {
+						Log.d("AsyncTasck", "Gravando colunas");
 						write.writeNext(columns);
-						for(Cliente cliente:lista){
-							String valor[] = {"\""+cliente.getNome()+"\"","\"\"","\""+cliente.getWebsite()+"\"","\""+cliente.getEmail_principal()+"\"",
-									/*1*/	"\""+cliente.getEmail_secundario()+"\"","\""+cliente.getTelefone()+"\"","\""+cliente.getTelefone2()+"\"",
-									/*2*/	"\""+cliente.getFax()+"\"","\"\"","\"\"",
-									/*3*/	"\"\"","\"\"",
-									/*4*/	"\"\"","\"\"",
-									/*5*/	"\"\"","\"\"",
-									/*6*/	"\"\"","\"\"",
-									/*7*/	"\"\"","\"\"","\""+cliente.getSegmento()+"\"","\"\"","\"\"",
-									/*8*/	"\"\"","\"\"","\"\"","\"\"",
-									/*9*/	"\"\"","\"\"","\""+cliente.getResponsavel()+"\"","\""+codresp+"\"",
-									/*10*/	"\"\"","\"\"","\"1\"",
-									/*11*/	"\"1\",\"0\"","\"0\"","\"\"",
-									/*12*/	"\""+cliente.getBairro()+"\"","\""+cliente.getCnpj()+"\"","\"\"",
-									/*13*/	"\"\"","\"\"","\""+cliente.getEstado()+"\"",
-									/*14*/	"\"NAO_USAR_MUDANCA_ANTIGA_DE_PLU_P_PDU\"","\""+cliente.getNome_fantasia()+"\"","\"\"",
-									/*15*/	"\""+cliente.getNumero()+"\"","\"\"",
-									/*16*/	"\"\"","\"\"",
-									/*17*/	"\""+cliente.getEndereco()+"\""};
+						for(Cliente cliente:lista){						
+							Log.d("AsyncTasck", "exportando "+cliente.getNome());
+							String valor[] = {cliente.getNome(),"",cliente.getWebsite(),cliente.getEmail_principal(),
+									/*1*/	cliente.getEmail_secundario(),cliente.getTelefone(),cliente.getTelefone2(),
+									/*2*/	cliente.getFax(),"","",
+									/*3*/	"","",
+									/*4*/	"","",
+									/*5*/	"","",
+									/*6*/	"","",
+									/*7*/	"","",cliente.getSegmento(),"","",
+									/*8*/	"","","","",
+									/*9*/	"","",cliente.getResponsavel(),codresp,
+									/*10*/	"","","1",
+									/*11*/	"1","0","0","",
+									/*12*/	cliente.getBairro(),cliente.getCnpj(),"",
+									/*13*/	"","",cliente.getEstado(),
+									/*14*/	"NAO_USAR_MUDANCA_ANTIGA_DE_PLU_P_PDU",cliente.getNome_fantasia(),"",
+									/*15*/	cliente.getNumero(),"",
+									/*16*/	"","",
+									/*17*/	cliente.getEndereco()};
 							write.writeNext(valor);
-							publishProgress(count,total);
 							count++;
+							publishProgress(total,count);
 							Log.d("ExportaCSV", "Cliente "+cliente+" exportado");
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						Log.d("AsyncTasck", "Erro ao exportar:" +e);
 					}
 					try {
 						write.close();
 						Log.d("ExportaCSV", "Processo finalizado");
 					} catch (IOException e) {
-						e.printStackTrace();
+						Log.d("AsyncTasck", "Erro ao salvar arquivo: "+e);
 					}
 				}
 				Log.d("AsyncTasck", "Exportação concluido");
@@ -281,7 +290,7 @@ public class Utility {
 
 		// build notification
 		// the addAction re-use the same intent to keep the example short
-		Notification not  = new Notification(R.drawable.logo,"Prospect",System.currentTimeMillis());
+		Notification not  = new Notification(R.drawable.ic_launcher,"Prospect",System.currentTimeMillis());
 		not.defaults |= Notification.DEFAULT_SOUND;
 		not.flags |= Notification.FLAG_AUTO_CANCEL;
 		if (sucess == 0){

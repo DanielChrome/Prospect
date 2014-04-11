@@ -131,6 +131,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		try {
 			//Tabela de Cliente
+			Log.d("DbHelper", "OnUpgrade");
 			String sql = "CREATE TABLE IF NOT EXISTS " + ClienteDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
 					+ " NOME TEXT NOT NULL,                              "
@@ -164,7 +165,7 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " OBSERVACAO TEXT,                                 "
 					+ " ORIGEM TEXT);                                    ";
 			db.execSQL(sql);
-
+			Log.d("DbHelper", "Recriação de Tabela Cliente");
 			//Tabela de Parametros.
 			sql = "CREATE TABLE IF NOT EXISTS " + ConfiguracoesDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
@@ -179,7 +180,7 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " SSL TEXT);                                       ";
 
 			db.execSQL(sql);
-
+			Log.d("DbHelper", "Recriação de Tabela Configuracoes");
 			sql = "CREATE TABLE IF NOT EXISTS " + ControleEmailDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
 					+ " CODCLIENTE INTEGER,                              "
@@ -190,10 +191,10 @@ public class DbHelper extends SQLiteOpenHelper {
 			try {
 				sql = "ALTER TABLE " + ClienteDAO.TABLE_NAME
 						+ " ADD COLUMN ENVIOEMAIL TEXT DEFAULT 'N';";
-
+				Log.d("DbHelper", "Add column ENVIOEMAIL tabela Cliente");
 				db.execSQL(sql);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e("DbHelper", "Erro Add column ENVIOEMAIL tabela Cliente:"+e);
 			}
 
 			//Atualiza registros
@@ -202,26 +203,29 @@ public class DbHelper extends SQLiteOpenHelper {
 						+ " ENVIOEMAIL = 'S' where "+ ClienteDAO.TABLE_NAME +"._id in "
 						+ " (SELECT CODCLIENTE FROM " + ControleEmailDAO.TABLE_NAME
 						+ "    WHERE EMAILENVIADO = 'S') ";
+				Log.d("DbHelper", "Update ENVIOEMAIL CLIENTE");
 				db.execSQL(sql);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e("DbHelper", "Erro Update ENVIOEMAIL:"+e);
 			}
 
 			try{
 				sql = "ALTER TABLE " + ConfiguracoesDAO.TABLE_NAME
 						+ " ADD COLUMN LINKIMAGEM TEXT ;  ";
+				Log.d("DbHelper", "Add column LINKIMAGEM tabela Config");
 				db.execSQL(sql);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e("DbHelper", "Erro Add column LINKIMAGEM tabela Config;"+e);
 			}
 			try{
 				sql = "ALTER TABLE " + ConfiguracoesDAO.TABLE_NAME
 						+ " ADD COLUMN ASSUNTO TEXT;"; 
+				Log.d("DbHelper", "Add column ASSUNTO tabela Config");
 				db.execSQL(sql);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.e("DbHelper", "Erro Add column ASSUNTO tabela Config:"+e);
 			}
-
+			Log.d("DbHelper", "Fim de Script de atualização do  banco.");
 		} catch (Exception e) {
 			Log.e("DbHelper", "Erro na criação da tabela", e);
 		}

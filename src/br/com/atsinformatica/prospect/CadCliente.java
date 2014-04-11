@@ -3,11 +3,9 @@ package br.com.atsinformatica.prospect;
 import br.com.atsinformatica.prospect.adapter.TabsPageAdapter;
 import br.com.atsinformatica.prospect.R;
 import br.com.atsinformatica.prospect.models.Cliente;
-import br.com.atsinformatica.prospect.models.ControleEmail;
 import br.com.atsinformatica.prospect.util.ServicoEmail;
 import br.com.atsinformatica.prospect.util.Utility;
 import br.com.atsinformatica.prospect.dataaccess.ClienteDAO;
-import br.com.atsinformatica.prospect.dataaccess.ControleEmailDAO;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -118,7 +116,6 @@ public class CadCliente extends FragmentActivity implements
     
     public void salvar(View v) {
 		// Recupera-se o dado digitado.
-    	ControleEmail cemail = new ControleEmail();
     	viewPager.setCurrentItem(0);//seta aba principal
     	ednome = (EditText) findViewById(R.id.edNome);
 		edfantasia = (EditText) findViewById(R.id.edFantasia);
@@ -169,6 +166,8 @@ public class CadCliente extends FragmentActivity implements
 			cliente.setCnpj(Utility.unmask(edcpfcnpj.getText().toString()));
 			if (!Utility.isValidCNPJ(cliente.getCnpj())){
 				Toast.makeText(getApplicationContext(), "CNPJ digitado inválido.", Toast.LENGTH_SHORT).show();
+				viewPager.setCurrentItem(0);//seta aba principal
+				edcpfcnpj.requestFocus();
 				return;	
 			}
 		}
@@ -177,6 +176,8 @@ public class CadCliente extends FragmentActivity implements
 			cliente.setCpf(Utility.unmask(edcpfcnpj.getText().toString()));
 			if (!Utility.isValidCPF(cliente.getCpf())){
 				Toast.makeText(getApplicationContext(), "CPF digitado inválido.", Toast.LENGTH_SHORT).show();
+				viewPager.setCurrentItem(0);//seta aba principal
+				edcpfcnpj.requestFocus();
 				return;	
 			}
 		}
@@ -184,6 +185,8 @@ public class CadCliente extends FragmentActivity implements
 		cliente.setSegmento(edsegmto.getText().toString());
 		if(cliente.getSegmento().isEmpty()){
 			Toast.makeText(getApplicationContext(), "Segmento obrigatório.", Toast.LENGTH_SHORT).show();
+			viewPager.setCurrentItem(0);//seta aba principal
+			edsegmto.requestFocus();
 			return;	
 		}
 		cliente.setResponsavel(edresp.getText().toString());
@@ -201,12 +204,16 @@ public class CadCliente extends FragmentActivity implements
 	    cliente.setEmail_principal(edemail1.getText().toString());
 	    if(cliente.getEmail_principal().isEmpty()){
 			Toast.makeText(getApplicationContext(), "Email Principal obrigatório.", Toast.LENGTH_SHORT).show();
+			viewPager.setCurrentItem(2);//seta aba contato
+			edemail1.requestFocus();
 			return;	
 		}
 		cliente.setEmail_secundario(edemail2.getText().toString());
 		cliente.setTelefone(edfone1.getText().toString());
 		if(cliente.getTelefone().isEmpty()){
 			Toast.makeText(getApplicationContext(), "Telefone principal obrigatório.", Toast.LENGTH_SHORT).show();
+			viewPager.setCurrentItem(2);//seta aba contato
+			edfone1.requestFocus();
 			return;	
 		}
 		cliente.setTelefone2(edfone2.getText().toString());
