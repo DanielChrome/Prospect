@@ -1086,6 +1086,8 @@ containing a value of this type.
         public static final int settings=0x7f02005d;
     }
     public static final class id {
+        public static final int Configuracoes=0x7f05008b;
+        public static final int Exportar=0x7f05008a;
         public static final int TextView1=0x7f050069;
         public static final int TextView2=0x7f05006b;
         public static final int TextView3=0x7f05006d;
@@ -1106,6 +1108,7 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f050024;
         public static final int action_settings=0x7f05008c;
         public static final int activity_chooser_view_content=0x7f050025;
+        public static final int addCliente=0x7f050087;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int btAtualizar=0x7f050084;
@@ -1166,17 +1169,14 @@ containing a value of this type.
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
         public static final int imageView1=0x7f050086;
-        public static final int imageView2=0x7f050087;
-        public static final int imageView3=0x7f050088;
-        public static final int imageView4=0x7f050089;
-        public static final int imageView5=0x7f05008a;
-        public static final int imageView6=0x7f05008b;
         public static final int listCod=0x7f050080;
         public static final int listEmail=0x7f050082;
         public static final int listMode=0x7f050001;
         public static final int listNome=0x7f050081;
         public static final int list_item=0x7f050029;
         public static final int lista=0x7f050085;
+        public static final int listaCliente=0x7f050088;
+        public static final int listaEmail=0x7f050089;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;

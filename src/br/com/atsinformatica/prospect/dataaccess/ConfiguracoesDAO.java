@@ -34,6 +34,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 		public static String CODRESP    = "CODRESP";
 		public static String ENVIAEMAIL = "ENVIAEMAIL";
 		public static String URLIMAGEM  = "URLIMAGEM";
+		public static String LINKIMAGEM = "LINKIMAGEM";
+		public static String ASSUNTO    = "ASSUNTO";
 		public static String SMTP       = "SMTP";
 		public static String PORTA      = "PORTA";
 		public static String EMAIL      = "EMAIL";
@@ -90,6 +92,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 					Column.CODRESP,
 					Column.ENVIAEMAIL,
 					Column.URLIMAGEM,
+					Column.LINKIMAGEM,
+					Column.ASSUNTO,
 					Column.SMTP,
 					Column.PORTA,
 					Column.EMAIL,
@@ -116,6 +120,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 					config.setCodResp(c.getString(c.getColumnIndex(Column.CODRESP)));
 					config.setEnviaEmail(c.getString(c.getColumnIndex(Column.ENVIAEMAIL)));
 					config.setUrlimagem(c.getString(c.getColumnIndex(Column.URLIMAGEM)));
+					config.setLinkimagem(c.getString(c.getColumnIndex(Column.LINKIMAGEM)));
+					config.setAssuntoemail(c.getString(c.getColumnIndex(Column.ASSUNTO)));
 					config.setSmtp(c.getString(c.getColumnIndex(Column.SMTP)));
 					config.setPorta(c.getInt(c.getColumnIndex(Column.PORTA)));
 					config.setEmail(c.getString(c.getColumnIndex(Column.EMAIL)));
@@ -163,6 +169,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 					Column.CODRESP,
 					Column.ENVIAEMAIL,
 					Column.URLIMAGEM,
+					Column.LINKIMAGEM,
+					Column.ASSUNTO,
 					Column.SMTP,
 					Column.PORTA,
 					Column.EMAIL,
@@ -183,6 +191,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 				config.setCodResp(c.getString(c.getColumnIndex(Column.CODRESP)));
 				config.setEnviaEmail(c.getString(c.getColumnIndex(Column.ENVIAEMAIL)));
 				config.setUrlimagem(c.getString(c.getColumnIndex(Column.URLIMAGEM)));
+				config.setLinkimagem(c.getString(c.getColumnIndex(Column.LINKIMAGEM)));
+				config.setAssuntoemail(c.getString(c.getColumnIndex(Column.ASSUNTO)));
 				config.setSmtp(c.getString(c.getColumnIndex(Column.SMTP)));
 				config.setPorta(c.getInt(c.getColumnIndex(Column.PORTA)));
 				config.setEmail(c.getString(c.getColumnIndex(Column.EMAIL)));
@@ -221,6 +231,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 			values.put(Column.CODRESP, config.getCodResp());
 			values.put(Column.ENVIAEMAIL,config.getEnviaEmail());
 			values.put(Column.URLIMAGEM,config.getUrlimagem());
+			values.put(Column.LINKIMAGEM, config.getLinkimagem());
+			values.put(Column.ASSUNTO, config.getAssuntoemail());
 			values.put(Column.SMTP,config.getSmtp());
 			values.put(Column.PORTA,config.getPorta());
 			values.put(Column.EMAIL,config.getEmail());
@@ -270,6 +282,8 @@ public class ConfiguracoesDAO extends Dao<Configuracoes>{
 					values.put(Column.CODRESP, config.getCodResp());
 					values.put(Column.ENVIAEMAIL,config.getEnviaEmail());
 					values.put(Column.URLIMAGEM,config.getUrlimagem());
+					values.put(Column.LINKIMAGEM, config.getLinkimagem());
+					values.put(Column.ASSUNTO, config.getAssuntoemail());
 					values.put(Column.SMTP,config.getSmtp());
 					values.put(Column.PORTA,config.getPorta());
 					values.put(Column.EMAIL,config.getEmail());

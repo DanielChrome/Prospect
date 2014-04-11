@@ -73,19 +73,21 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " ENVIOEMAIL TEXT DEFAULT 'N');                     ";
 			Log.d("DbHelper", "Criando tabela cliente");
 			db.execSQL(sql);
-			
+
 			sql = "CREATE TABLE " + ConfiguracoesDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
 					+ " CODRESP TEXT,                                    "
 					+ " ENVIAEMAIL TEXT ,                                "
 					+ " URLIMAGEM TEXT ,                                 "
+					+ " LINKIMAGEM TEXT ,                                "
+					+ " ASSUNTO TEXT ,                                   "
 					+ " SMTP TEXT,                                       "
 					+ " PORTA TEXT,                                      "
 					+ " EMAIL TEXT,                                      "
 					+ " USUARIO TEXT,                                    "
 					+ " SENHA TEXT,                                      "
-			        + " SSL TEXT);                                       ";
-			
+					+ " SSL TEXT);                                       ";
+
 			Log.d("DbHelper", "Criando tabela Config");
 			db.execSQL(sql);
 			//Inserre valores padrão.
@@ -98,12 +100,12 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " EMAIL,                                      "
 					+ " USUARIO,                                    "
 					+ " SENHA,                                      "
-			        + " SSL)                                        "
+					+ " SSL)                                        "
 					+ " VALUES('','S','http:////','smtp.atsinformatica.com.br', "
-			        + "        '587','nome@atsinformatica.com.br',      "
+					+ "        '587','nome@atsinformatica.com.br',      "
 					+ "        'nome','','N');                          ";
 			Log.d("DbHelper", "Inseriu registro Config");
-			
+
 			db.execSQL(sql);
 			sql = "CREATE TABLE " + ControleEmailDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
@@ -162,7 +164,7 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " OBSERVACAO TEXT,                                 "
 					+ " ORIGEM TEXT);                                    ";
 			db.execSQL(sql);
-			
+
 			//Tabela de Parametros.
 			sql = "CREATE TABLE IF NOT EXISTS " + ConfiguracoesDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
@@ -174,26 +176,52 @@ public class DbHelper extends SQLiteOpenHelper {
 					+ " EMAIL TEXT,                                      "
 					+ " USUARIO TEXT,                                    "
 					+ " SENHA TEXT,                                      "
-			        + " SSL TEXT);                                       ";
-			
+					+ " SSL TEXT);                                       ";
+
 			db.execSQL(sql);
-			
+
 			sql = "CREATE TABLE IF NOT EXISTS " + ControleEmailDAO.TABLE_NAME
 					+ " (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
 					+ " CODCLIENTE INTEGER,                              "
 					+ " EMAILENVIADO TEXT);                              ";
 			db.execSQL(sql);
-			
+
 			//cria campo de envio de email
-			sql = "ALTER TABLE " + ClienteDAO.TABLE_NAME
-					+ " ADD COLUMN ENVIOEMAIL TEXT DEFAULT 'N';";
-			db.execSQL(sql);
+			try {
+				sql = "ALTER TABLE " + ClienteDAO.TABLE_NAME
+						+ " ADD COLUMN ENVIOEMAIL TEXT DEFAULT 'N';";
+
+				db.execSQL(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			//Atualiza registros
-			sql = "UPDATE " + ClienteDAO.TABLE_NAME + " SET "
-				+ " ENVIOEMAIL = 'S' where "+ ClienteDAO.TABLE_NAME +"._id in "
-				+ " (SELECT CODCLIENTE FROM " + ControleEmailDAO.TABLE_NAME
-				+ "    WHERE EMAILENVIADO = 'S') ";
-			db.execSQL(sql);
+			try {
+				sql = "UPDATE " + ClienteDAO.TABLE_NAME + " SET "
+						+ " ENVIOEMAIL = 'S' where "+ ClienteDAO.TABLE_NAME +"._id in "
+						+ " (SELECT CODCLIENTE FROM " + ControleEmailDAO.TABLE_NAME
+						+ "    WHERE EMAILENVIADO = 'S') ";
+				db.execSQL(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			try{
+				sql = "ALTER TABLE " + ConfiguracoesDAO.TABLE_NAME
+						+ " ADD COLUMN LINKIMAGEM TEXT ;  ";
+				db.execSQL(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try{
+				sql = "ALTER TABLE " + ConfiguracoesDAO.TABLE_NAME
+						+ " ADD COLUMN ASSUNTO TEXT;"; 
+				db.execSQL(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} catch (Exception e) {
 			Log.e("DbHelper", "Erro na criação da tabela", e);
 		}

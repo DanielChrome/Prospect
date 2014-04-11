@@ -36,6 +36,8 @@ public class Utility {
 
 	private Context ct;
 	private static final int MY_NOTIFICATION_ID=1;
+	private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+	private static final int[] pesoCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 	/**
 	 * Método responsável pela geração e tratamento de diálogos.
 	 * 
@@ -114,11 +116,11 @@ public class Utility {
 			}
 		};
 	}
-	
+
 	public void setContext(Context ctx){
 		this.ct = ctx;
 	}
-	
+
 	public static void sendEmail(Context ctx,Cliente cli) throws Exception {
 		Log.i("SendEmail", "Preparando para enviar email");
 		Mail email = new Mail(ctx);
@@ -150,8 +152,8 @@ public class Utility {
 				Toast.makeText(ct, 
 						"Nenhum registro para ser importado", Toast.LENGTH_SHORT).show();
 			}
-				
-			
+
+
 		}
 
 		@Override
@@ -181,7 +183,7 @@ public class Utility {
 				}				
 				String codresp = ConfiguracoesDAO.getConfiguracoesDAO(ct).select(1).getCodResp();
 				String columns[] = {"\"Razão Social\"","\"ID\"","\"Website\"","\"Endereço(s) de E-mail\"",						
-				        /*1*/	"\"email_addresses_non_primary\"","\"Telefone Comercial\"","\"Telefone Alternativo\"",
+						/*1*/	"\"email_addresses_non_primary\"","\"Telefone Comercial\"","\"Telefone Alternativo\"",
 						/*2*/	"\"Fax\"","\"Rua do Endereço não Utilizado\"","\"Cidade do Endereço não Utilizado\"",
 						/*3*/	"\"Estado do Endereço não Utilizado\"","\"CEP do Endereço não Utilizado\"",
 						/*4*/	"\"País do Endereço não Utilizado\"","\"Rua do Endereço não Utilizado\"",
@@ -197,8 +199,8 @@ public class Utility {
 						/*14*/	"\"Motivo do Cancelamento\"","\"Nome Fantasia\"","\"Número do Endereço de Fatura\"",
 						/*15*/	"\"Número do Endereço Principal\"","\"País do Endereço de Fatura\"",
 						/*16*/	"\"País do Endereço Principal\"","\"Rua do Endereço de Fatura\"",
-						/*17*/	"\"Rua do Endereço Principal\""};
-				
+				/*17*/	"\"Rua do Endereço Principal\""};
+
 				String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
 				Log.d("ExportaCSV", "Diretorio: "+csv);
 				File file  = android.os.Environment.getExternalStorageDirectory();
@@ -210,24 +212,24 @@ public class Utility {
 					try {
 						write.writeNext(columns);
 						for(Cliente cliente:lista){
-						String valor[] = {"\""+cliente.getNome()+"\"","\"\"","\""+cliente.getWebsite()+"\"","\""+cliente.getEmail_principal()+"\"",
-								/*1*/	"\""+cliente.getEmail_secundario()+"\"","\""+cliente.getTelefone()+"\"","\""+cliente.getTelefone2()+"\"",
-								/*2*/	"\""+cliente.getFax()+"\"","\"\"","\"\"",
-								/*3*/	"\"\"","\"\"",
-								/*4*/	"\"\"","\"\"",
-								/*5*/	"\"\"","\"\"",
-								/*6*/	"\"\"","\"\"",
-								/*7*/	"\"\"","\"\"","\""+cliente.getSegmento()+"\"","\"\"","\"\"",
-								/*8*/	"\"\"","\"\"","\"\"","\"\"",
-								/*9*/	"\"\"","\"\"","\""+cliente.getResponsavel()+"\"","\""+codresp+"\"",
-								/*10*/	"\"\"","\"\"","\"1\"",
-								/*11*/	"\"1\",\"0\"","\"0\"","\"\"",
-								/*12*/	"\""+cliente.getBairro()+"\"","\""+cliente.getCnpj()+"\"","\"\"",
-								/*13*/	"\"\"","\"\"","\""+cliente.getEstado()+"\"",
-								/*14*/	"\"NAO_USAR_MUDANCA_ANTIGA_DE_PLU_P_PDU\"","\""+cliente.getNome_fantasia()+"\"","\"\"",
-								/*15*/	"\""+cliente.getNumero()+"\"","\"\"",
-								/*16*/	"\"\"","\"\"",
-								/*17*/	"\""+cliente.getEndereco()+"\""};
+							String valor[] = {"\""+cliente.getNome()+"\"","\"\"","\""+cliente.getWebsite()+"\"","\""+cliente.getEmail_principal()+"\"",
+									/*1*/	"\""+cliente.getEmail_secundario()+"\"","\""+cliente.getTelefone()+"\"","\""+cliente.getTelefone2()+"\"",
+									/*2*/	"\""+cliente.getFax()+"\"","\"\"","\"\"",
+									/*3*/	"\"\"","\"\"",
+									/*4*/	"\"\"","\"\"",
+									/*5*/	"\"\"","\"\"",
+									/*6*/	"\"\"","\"\"",
+									/*7*/	"\"\"","\"\"","\""+cliente.getSegmento()+"\"","\"\"","\"\"",
+									/*8*/	"\"\"","\"\"","\"\"","\"\"",
+									/*9*/	"\"\"","\"\"","\""+cliente.getResponsavel()+"\"","\""+codresp+"\"",
+									/*10*/	"\"\"","\"\"","\"1\"",
+									/*11*/	"\"1\",\"0\"","\"0\"","\"\"",
+									/*12*/	"\""+cliente.getBairro()+"\"","\""+cliente.getCnpj()+"\"","\"\"",
+									/*13*/	"\"\"","\"\"","\""+cliente.getEstado()+"\"",
+									/*14*/	"\"NAO_USAR_MUDANCA_ANTIGA_DE_PLU_P_PDU\"","\""+cliente.getNome_fantasia()+"\"","\"\"",
+									/*15*/	"\""+cliente.getNumero()+"\"","\"\"",
+									/*16*/	"\"\"","\"\"",
+									/*17*/	"\""+cliente.getEndereco()+"\""};
 							write.writeNext(valor);
 							publishProgress(count,total);
 							count++;
@@ -251,7 +253,7 @@ public class Utility {
 			return null;
 		}
 	}
-	
+
 	/* Função para verificar existência de conexão com a internet 
 	 */  
 	public static boolean verificaConexao(Context ctx) {  
@@ -267,13 +269,13 @@ public class Utility {
 		Log.d("VErificaConexao", "Conectado = " + conectado);
 		return conectado;  
 	}
-	
+
 	//Função pra enviar notificações
 	public static void enviaNotificacao(Context ctx, int count, int sucess){
-		
+
 		NotificationManager notificationManager;
 		notificationManager =
-				 (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+				(NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent intent = new Intent(ctx, ListaEmails.class);
 		PendingIntent pIntent = PendingIntent.getActivity(ctx, 0, intent, 0);
 
@@ -283,19 +285,45 @@ public class Utility {
 		not.defaults |= Notification.DEFAULT_SOUND;
 		not.flags |= Notification.FLAG_AUTO_CANCEL;
 		if (sucess == 0){
-		not.setLatestEventInfo(ctx,
-		   "Emails Enviados",
-		   "",
-		   pIntent);
-		}else
-		if (sucess == 1){
 			not.setLatestEventInfo(ctx,
-			   "Erro ao enviar emails",
-			   "Verifique as configurações do email ou a conexão com internet.",
-			   pIntent);
+					"Emails Enviados",
+					"",
+					pIntent);
+		}else
+			if (sucess == 1){
+				not.setLatestEventInfo(ctx,
+						"Erro ao enviar emails",
+						"Verifique as configurações do email ou a conexão com internet.",
+						pIntent);
+			}
+		notificationManager.notify(MY_NOTIFICATION_ID, not);		
+	}
+
+
+
+	private static int calcularDigito(String str, int[] peso) {
+		int soma = 0;
+		for (int indice=str.length()-1, digito; indice >= 0; indice-- ) {
+			digito = Integer.parseInt(str.substring(indice,indice+1));
+			soma += digito*peso[peso.length-str.length()+indice];
 		}
-		notificationManager.notify(MY_NOTIFICATION_ID, not);
-		    
-		
+		soma = 11 - soma % 11;
+		return soma > 9 ? 0 : soma;
+	}
+
+	public static boolean isValidCPF(String cpf) {
+		if ((cpf==null) || (cpf.length()!=11)) return false;
+
+		Integer digito1 = calcularDigito(cpf.substring(0,9), pesoCPF);
+		Integer digito2 = calcularDigito(cpf.substring(0,9) + digito1, pesoCPF);
+		return cpf.equals(cpf.substring(0,9) + digito1.toString() + digito2.toString());
+	}
+
+	public static boolean isValidCNPJ(String cnpj) {
+		if ((cnpj==null)||(cnpj.length()!=14)) return false;
+
+		Integer digito1 = calcularDigito(cnpj.substring(0,12), pesoCNPJ);
+		Integer digito2 = calcularDigito(cnpj.substring(0,12) + digito1, pesoCNPJ);
+		return cnpj.equals(cnpj.substring(0,12) + digito1.toString() + digito2.toString());
 	}
 }    

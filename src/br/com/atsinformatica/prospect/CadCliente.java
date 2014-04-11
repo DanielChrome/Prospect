@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
  
 @SuppressLint("NewApi")
 public class CadCliente extends FragmentActivity implements
@@ -126,7 +127,7 @@ public class CadCliente extends FragmentActivity implements
 		edinsc    = (EditText) findViewById(R.id.edInscE);
 	    edsegmto  = (EditText) findViewById(R.id.edSegmento);
 	    edresp    = (EditText) findViewById(R.id.edResp);
-    	
+	    
     	viewPager.setCurrentItem(1);//seta aba cadastro
     	edendereco = (EditText) findViewById(R.id.edEndereco);
 		edbairro   = (EditText) findViewById(R.id.edBairro);
@@ -166,13 +167,25 @@ public class CadCliente extends FragmentActivity implements
 		if (rbpessoaj.isChecked()){
 			cliente.setTipo_pessoa("J");
 			cliente.setCnpj(Utility.unmask(edcpfcnpj.getText().toString()));
+			if (!Utility.isValidCNPJ(cliente.getCnpj())){
+				Toast.makeText(getApplicationContext(), "CNPJ digitado inválido.", Toast.LENGTH_SHORT).show();
+				return;	
+			}
 		}
 		else{
 			cliente.setTipo_pessoa("F");
 			cliente.setCpf(Utility.unmask(edcpfcnpj.getText().toString()));
+			if (!Utility.isValidCPF(cliente.getCpf())){
+				Toast.makeText(getApplicationContext(), "CPF digitado inválido.", Toast.LENGTH_SHORT).show();
+				return;	
+			}
 		}
 		cliente.setInsc_estadual(edinsc.getText().toString());
 		cliente.setSegmento(edsegmto.getText().toString());
+		if(cliente.getSegmento().isEmpty()){
+			Toast.makeText(getApplicationContext(), "Segmento obrigatório.", Toast.LENGTH_SHORT).show();
+			return;	
+		}
 		cliente.setResponsavel(edresp.getText().toString());
 	    
 	    //carrega dados endereco
@@ -186,8 +199,16 @@ public class CadCliente extends FragmentActivity implements
 	    
 	    //carrega dados contatos
 	    cliente.setEmail_principal(edemail1.getText().toString());
+	    if(cliente.getEmail_principal().isEmpty()){
+			Toast.makeText(getApplicationContext(), "Email Principal obrigatório.", Toast.LENGTH_SHORT).show();
+			return;	
+		}
 		cliente.setEmail_secundario(edemail2.getText().toString());
 		cliente.setTelefone(edfone1.getText().toString());
+		if(cliente.getTelefone().isEmpty()){
+			Toast.makeText(getApplicationContext(), "Telefone principal obrigatório.", Toast.LENGTH_SHORT).show();
+			return;	
+		}
 		cliente.setTelefone2(edfone2.getText().toString());
 		cliente.setCelular(edcelular1.getText().toString());
 		cliente.setCelular2(edcelular2.getText().toString());

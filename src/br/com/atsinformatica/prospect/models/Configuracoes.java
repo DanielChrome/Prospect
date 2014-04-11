@@ -11,6 +11,8 @@ public class Configuracoes {
 	private String  codResp;
     private String  enviaEmail;
     private String  urlimagem;
+    private String  linkimagem;
+    private String  assuntoemail;
     private String  smtp;
     private int     porta;
     private String  email;
@@ -85,6 +87,21 @@ public class Configuracoes {
 	public void setSSL(String ssl) {
 		this.ssl = ssl;
 	}
-    
+
+	public String getLinkimagem() {
+		return linkimagem;
+	}
+
+	public void setLinkimagem(String linkimagem) {
+		this.linkimagem = linkimagem;
+	}
+
+	public String getAssuntoemail() {
+		return assuntoemail;
+	}
+
+	public void setAssuntoemail(String assuntoemail) {
+		this.assuntoemail = assuntoemail;
+	}
     
 }
